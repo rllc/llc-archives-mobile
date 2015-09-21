@@ -1,0 +1,23 @@
+<ion-view view-title="Settings">
+  <ion-content>
+    <ion-list>
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Default Congregation
+        </div>
+
+          <select
+            ng-options="c.name as c.fullName for c in congregations track by $index "
+            ng-model="settings.defaultCongregation"
+            ng-change="save()">
+          </select>
+      </label>
+    </ion-list>
+  </ion-content>
+  <ion-footer-bar align-title="left" class="bar-assertive">
+    <div class="bar bar-footer bar-balanced">
+      <div class="title">Save</div>
+    </div>
+  </ion-footer-bar>
+
+</ion-view>

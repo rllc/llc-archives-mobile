@@ -1,0 +1,11 @@
+<ion-view view-title="LLC Archives">
+  <ion-content class="padding">
+    <ul class="list">
+        <li ng-repeat="c in congregations track by $index " class="item">
+          <a href="#/tab/congregations/{{c.name}}">
+            {{c.fullName}}
+          </a>
+        </li>
+    </ul>
+  </ion-content>
+</ion-view>

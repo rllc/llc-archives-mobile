@@ -1,0 +1,15 @@
+<ion-view view-title="{{sermon.date | date : 'MM/dd/yyyy'}}">
+  <ion-content class="padding">
+    <div class="list card">
+      <div class="item">
+        <h2>{{sermon.minister}} - {{sermon.date | date : 'MM/dd/yyyy'}}</h2>
+        <h3>{{sermon.comments}}</h3>
+        <p>{{sermon.bibleText}}</p>
+      </div>
+      <a class="item item-icon-left assertive" href="{{sermon.fileUrl}}">
+        <i class="icon ion-music-note"></i>
+        Start listening
+      </a>
+    </div>
+  </ion-content>
+</ion-view>
