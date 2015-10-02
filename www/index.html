@@ -18,10 +18,19 @@
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
 
-    <!-- your app's js -->
-    <script src="js/app.js"></script>
-    <script src="js/controllers.js"></script>
-    <script src="js/services.js"></script>
+    <script src="modules/app.js"></script>
+    <script src="modules/congregation/congregation.js"></script>
+    <script src="modules/congregation/congregationCtrl.js"></script>
+    <script src="modules/congregation/congregationsCtrl.js"></script>
+
+    <script src="modules/sermon/sermon.js"></script>
+    <script src="modules/sermon/sermonCtrl.js"></script>
+
+    <script src="modules/settings/settings.js"></script>
+    <script src="modules/settings/settingsCtrl.js"></script>
+
+    <script src="modules/archives/archivesService.js"></script>
+    <script src="modules/common/services/localStorageService.js"></script>
   </head>
   <body ng-app="llc.archives">
 

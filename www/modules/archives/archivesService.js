@@ -1,5 +1,7 @@
-angular.module('llc.archives.services', [])
+(function () {
+'use strict';
 
+angular.module('llc.archives.services')
 .factory('Archives', function($http) {
   var restApiUrl = 'https://llc-archives.herokuapp.com/api';
 
@@ -34,19 +36,4 @@ angular.module('llc.archives.services', [])
 
 })
 
-.factory('$localstorage', ['$window', function($window) {
-  return {
-    set: function(key, value) {
-      $window.localStorage[key] = value;
-    },
-    get: function(key, defaultValue) {
-      return $window.localStorage[key] || defaultValue;
-    },
-    setObject: function(key, value) {
-      $window.localStorage[key] = JSON.stringify(value);
-    },
-    getObject: function(key) {
-      return JSON.parse($window.localStorage[key] || '{}');
-    }
-  }
-}]);
+})();

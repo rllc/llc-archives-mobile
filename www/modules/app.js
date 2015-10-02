@@ -1,4 +1,15 @@
-angular.module('llc.archives', ['ionic', 'llc.archives.controllers', 'llc.archives.services'])
+(function () {
+'use strict';
+
+angular.module('llc.archives.services', []);
+
+angular.module('llc.archives', [
+  'ionic',
+  'llc.archives.congregation',
+  'llc.archives.sermon',
+  'llc.archives.settings',
+  'llc.archives.services'
+])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -62,3 +73,6 @@ angular.module('llc.archives', ['ionic', 'llc.archives.controllers', 'llc.archiv
   $urlRouterProvider.otherwise('/tab/congregations');
 
 });
+
+
+})();
