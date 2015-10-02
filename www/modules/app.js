@@ -36,7 +36,7 @@ angular.module('llc.archives', [
     url: '/congregations',
     views: {
       'tab-congregations': {
-        templateUrl: 'templates/tab-congregations.html',
+        templateUrl: 'modules/congregation/tab-congregations.html',
         controller: 'CongregationsCtrl'
       }
     }
@@ -45,7 +45,7 @@ angular.module('llc.archives', [
     url: '/congregations/:name',
     views: {
       'tab-congregations': {
-        templateUrl: 'templates/congregation.html',
+        templateUrl: 'modules/congregation/congregation.html',
         controller: 'CongregationCtrl'
       }
     }
@@ -54,7 +54,7 @@ angular.module('llc.archives', [
     url: '/congregations/:name/sermons/:index',
     views: {
       'tab-congregations': {
-        templateUrl: 'templates/sermon.html',
+        templateUrl: 'modules/sermon/sermon.html',
         controller: 'SermonCtrl'
       }
     }
@@ -63,7 +63,7 @@ angular.module('llc.archives', [
     url: '/settings',
     views: {
       'tab-settings': {
-        templateUrl: 'templates/tab-settings.html',
+        templateUrl: 'modules/settings/tab-settings.html',
         controller: 'SettingsCtrl'
       }
     }
