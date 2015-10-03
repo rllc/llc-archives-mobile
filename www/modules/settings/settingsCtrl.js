@@ -1,35 +1,20 @@
 (function () {
 'use strict';
 
-function SettingsCtrl ($scope, $ionicLoading, $localstorage, Archives){
+function SettingsCtrl ($scope, $localstorage, Settings, settings, congregations) {
 
-  if ($localstorage.get('settings') != null) {
-    $scope.settings = $localstorage.getObject('settings');
-  }
-  else {
-    $scope.settings = {
-      defaultCongregation: ''
-    };
-  }
+  this.settings = settings;
+  this.congregations = congregations;
 
-  $scope.save = function() {
-    $localstorage.setObject('settings', $scope.settings);
+  this.save = function() {
+    console.log('save',this.settings);
+    Settings.save(this.settings);
   }
 
-  if ($localstorage.get('congregations') != null) {
-    $scope.congregations = $localstorage.getObject('congregations')
-  }
-  else {
-    $ionicLoading.show({template: 'Loading...'});
-    Archives.congregations().then(function(data) {
-      $localstorage.setObject('congregations', data);
-      $scope.congregations = data;
-      $ionicLoading.hide();
-    });
-  }
-}
+};
 
 angular.module('llc.archives.settings')
-.controller('SettingsCtrl', ['$scope', '$ionicLoading', '$localstorage', 'Archives', SettingsCtrl]);
+  .controller('SettingsCtrl', ['$scope', '$localstorage', 'Settings', 'settings', 'congregations', SettingsCtrl]);
+
 
 })();

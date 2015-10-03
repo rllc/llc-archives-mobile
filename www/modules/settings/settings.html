@@ -7,9 +7,9 @@
         </div>
 
           <select
-            ng-options="c.name as c.fullName for c in congregations track by $index "
-            ng-model="settings.defaultCongregation"
-            ng-change="save()">
+            ng-options="c.name as c.fullName for c in settingsCtrl.congregations track by $index "
+            ng-model="settingsCtrl.settings.defaultCongregation"
+            ng-change="settingsCtrl.save()">
           </select>
       </label>
     </ion-list>

@@ -26,53 +26,28 @@ angular.module('llc.archives', [
 .config(function($stateProvider, $urlRouterProvider) {
 
   $stateProvider
-  .state('tab', {
-    url: '/tab',
-    abstract: true,
-    templateUrl: 'templates/tabs.html'
-  })
+    .state('tab', {
+      url: '/tab',
+      abstract: true,
+      templateUrl: 'templates/tabs.html'
+    });
 
-  .state('tab.congregations', {
-    url: '/congregations',
-    views: {
-      'tab-congregations': {
-        templateUrl: 'modules/congregation/tab-congregations.html',
-        controller: 'CongregationsCtrl'
-      }
-    }
-  })
-  .state('tab.congregation', {
-    url: '/congregations/:name',
-    views: {
-      'tab-congregations': {
-        templateUrl: 'modules/congregation/congregation.html',
-        controller: 'CongregationCtrl'
-      }
-    }
-  })
-  .state('tab.sermon', {
-    url: '/congregations/:name/sermons/:index',
-    views: {
-      'tab-congregations': {
-        templateUrl: 'modules/sermon/sermon.html',
-        controller: 'SermonCtrl'
-      }
-    }
-  })
-  .state('tab.settings', {
-    url: '/settings',
-    views: {
-      'tab-settings': {
-        templateUrl: 'modules/settings/tab-settings.html',
-        controller: 'SettingsCtrl'
-      }
-    }
-  });
-
-  // if none of the above states are matched, use this as the fallback
+  // if no state is matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/congregations');
 
-});
+})
+
+.run(['$rootScope', '$ionicLoading', function ($rootScope, $ionicLoading) {
+
+  $rootScope.$on('$stateChangeStart', function () {
+    $ionicLoading.show({template: 'Loading...'});
+  });
+
+  $rootScope.$on('$stateChangeSuccess', function () {
+    $ionicLoading.hide();
+  });
+
+}])
 
 
 })();
