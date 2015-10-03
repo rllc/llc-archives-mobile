@@ -1,39 +1,52 @@
 (function () {
 'use strict';
 
-  function Sermon (Archives, $localstorage) {
+function Sermon ($localstorage, $http, api) {
 
-    function hasSavedSermons (congregation) {
-      return $localstorage.get(congregation + '.sermons') != null;
-    }
+  var restApiUrl = api.llcArchives;
 
-    function getSavedSermons (congregation) {
-      return $localstorage.getObject(congregation + '.sermons');
-    }
-
-    function saveSermons (congregation, data) {
-      $localstorage.setObject(congregation + '.sermons', data._embedded.sermons);
-    }
-
-    return {
-      findAllByCongregation: function (congregation) {
-
-        if (hasSavedSermons(congregation)) {
-          return getSavedSermons(congregation);
-        }
-
-        return Archives.sermons(congregation).then(function(data) {
-          saveSermons(congregation, data);
-          return getSavedSermons(congregation);
-        });
-      },
-      find: function (congregation, index) {
-        return getSavedSermons(congregation)[index];
-      }
-    }
+  function hasSavedSermons (congregation) {
+    return $localstorage.get(congregation + '.sermons') != null;
   }
 
-  angular.module('llc.archives.sermon')
-    .factory('Sermon', ['Archives', '$localstorage', Sermon]);
+  function getSavedSermons (congregation) {
+    return $localstorage.getObject(congregation + '.sermons');
+  }
+
+  function saveSermons (congregation, data) {
+    $localstorage.setObject(congregation + '.sermons', data._embedded.sermons);
+  }
+
+  function querySermons (congregation) {
+    return $http.get(restApiUrl + '/congregations/search/findByName?name=' + congregation)
+      .then(function (response) {
+        return response.data;
+      }).then(function(data) {
+        return $http.get(data._embedded.congregations[0]._links.sermons.href);
+      }).then(function (response) {
+        return response.data;
+      })
+  }
+
+  return {
+    findAllByCongregation: function (congregation) {
+
+      if (hasSavedSermons(congregation)) {
+        return getSavedSermons(congregation);
+      }
+
+      return querySermons(congregation).then(function(data) {
+        saveSermons(congregation, data);
+        return getSavedSermons(congregation);
+      });
+    },
+    find: function (congregation, index) {
+      return getSavedSermons(congregation)[index];
+    }
+  }
+}
+
+angular.module('llc.archives.sermon')
+  .factory('Sermon', ['$localstorage', '$http', 'api', Sermon]);
 
 })();

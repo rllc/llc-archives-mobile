@@ -1,29 +1,15 @@
 (function () {
 'use strict';
 
-angular.module('llc.archives.services', []);
-
 angular.module('llc.archives', [
   'ionic',
   'llc.archives.congregation',
   'llc.archives.sermon',
   'llc.archives.settings',
-  'llc.archives.services'
+  'llc.archives.common'
 ])
 
-.run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
-    if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-      cordova.plugins.Keyboard.disableScroll(true);
-    }
-    if (window.StatusBar) {
-      StatusBar.styleLightContent();
-    }
-  });
-})
-
-.config(function($stateProvider, $urlRouterProvider) {
+.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
   $stateProvider
     .state('tab', {
@@ -35,9 +21,9 @@ angular.module('llc.archives', [
   // if no state is matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/congregations');
 
-})
+}])
 
-.run(['$rootScope', '$ionicLoading', function ($rootScope, $ionicLoading) {
+.run(['$rootScope', '$ionicLoading', '$ionicPlatform', function ($rootScope, $ionicLoading, $ionicPlatform) {
 
   $rootScope.$on('$stateChangeStart', function () {
     $ionicLoading.show({template: 'Loading...'});
@@ -45,9 +31,22 @@ angular.module('llc.archives', [
 
   $rootScope.$on('$stateChangeSuccess', function () {
     $ionicLoading.hide();
+  })
+
+  $ionicPlatform.ready(function() {
+    if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+      cordova.plugins.Keyboard.disableScroll(true);
+    }
+    if (window.StatusBar) {
+      StatusBar.styleLightContent();
+    }
   });
 
 }])
 
+.constant('api', {
+  llcArchives: 'https://llc-archives.herokuapp.com/api'
+})
 
 })();

@@ -1,7 +1,7 @@
 (function () {
 'use strict';
 
-angular.module('llc.archives.services')
+angular.module('llc.archives.common')
 .factory('$localstorage', ['$window', function($window) {
   return {
     set: function(key, value) {

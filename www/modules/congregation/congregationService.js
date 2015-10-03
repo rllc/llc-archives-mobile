@@ -1,25 +1,28 @@
 (function () {
 'use strict';
 
-  function CongregationService ($localstorage, $filter, Archives) {
+function CongregationService ($localstorage, $http, $filter, api) {
 
-    return {
-      query: function () {
-        $localstorage.set('sermons', '');
-        $localstorage.setObject('congregations', '');
-        return Archives.congregations().then(function(data) {
-          $localstorage.setObject('congregations', data);
-          return data;
-        });
-      },
-      findByName: function (name) {
-        var congregations = $localstorage.getObject('congregations');
-        return $filter('filter')(congregations, { name: name })[0];
-      }
+  var restApiUrl = api.llcArchives;
+
+  return {
+    query: function () {
+      $localstorage.set('sermons', '');
+      $localstorage.setObject('congregations', '');
+
+      return $http.get(restApiUrl + '/congregations').then(function (response) {
+        $localstorage.setObject('congregations', response.data._embedded.congregations);
+        return response.data._embedded.congregations;
+      });
+    },
+    findByName: function (name) {
+      var congregations = $localstorage.getObject('congregations');
+      return $filter('filter')(congregations, { name: name })[0];
     }
   }
+}
 
-  angular.module('llc.archives.congregation')
-    .factory('Congregation', ['$localstorage', '$filter', 'Archives', CongregationService]);
+angular.module('llc.archives.congregation')
+  .factory('Congregation', ['$localstorage', '$http', '$filter', 'api', CongregationService]);
 
 })();
