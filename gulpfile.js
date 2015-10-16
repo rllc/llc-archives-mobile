@@ -2,13 +2,20 @@ var gulp = require('gulp');
 var gutil = require('gulp-util');
 var bower = require('bower');
 var concat = require('gulp-concat');
+var uglify = require("gulp-uglify");
 var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
 
 var paths = {
-  sass: ['./scss/**/*.scss']
+  sass: ['./scss/**/*.scss'],
+  scripts: ['./www/modules/**/*.js', '!./www/js/app.bundle.min.js'], // exclude the file we write too
+  dist: ['./www/dist/']
+};
+
+var files = {
+	jsbundle: 'app.bundle.min.js'
 };
 
 gulp.task('default', ['sass']);
@@ -29,6 +36,15 @@ gulp.task('sass', function(done) {
 
 gulp.task('watch', function() {
   gulp.watch(paths.sass, ['sass']);
+  gulp.watch(paths.scripts, ['scripts']);
+});
+
+// scripts - minify, concat
+gulp.task('scripts', function() {
+	gulp.src(paths.scripts)
+		.pipe(concat(files.jsbundle))
+		.pipe(uglify())
+		.pipe(gulp.dest(paths.dist + 'js'));
 });
 
 gulp.task('install', ['git-check'], function() {

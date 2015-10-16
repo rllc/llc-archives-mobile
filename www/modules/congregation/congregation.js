@@ -2,7 +2,7 @@
 'use strict';
 
 angular.module('llc.archives.congregation', [])
-.config(function($stateProvider) {
+.config(['$stateProvider', function($stateProvider) {
 
   $stateProvider
     .state('tab.congregations', {
@@ -37,5 +37,5 @@ angular.module('llc.archives.congregation', [])
       }
     })
 
-});
+}]);
 })();
