@@ -9,12 +9,18 @@ Add <a href="https://chrome.google.com/webstore/detail/allow-control-allow-origi
 
 Install cordova
 
+```
   $ npm install -g cordova
+```
   
 Add browser platform
 
+```
   $ cordova platform add browser
+```
   
 Run
 
+```
   $ cordova run browser
+```
