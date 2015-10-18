@@ -14,7 +14,7 @@ function Sermon ($localstorage, $http, api) {
   }
 
   function saveSermons (congregation, data) {
-    $localstorage.setObject(congregation + '.sermons', data._embedded.sermons);
+    $localstorage.setObject(congregation + '.sermons', data._embedded != undefined ? data._embedded.sermons : {});
   }
 
   function querySermons (congregation) {
