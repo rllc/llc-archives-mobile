@@ -6,14 +6,14 @@ angular.module('llc.archives.sermon', [])
 
   $stateProvider
     .state('tab.sermon', {
-      url: '/congregations/:name/sermons/:index',
+      url: '/congregations/:name/sermons/:id',
       views: {
         'congregations': {
           templateUrl: 'modules/sermon/sermon.html',
           controller: 'SermonCtrl as sermonCtrl',
           resolve: {
             sermon: ['Sermon', '$stateParams', function (Sermon, $stateParams) {
-              return Sermon.find($stateParams.name, $stateParams.index);
+              return Sermon.get({ id: $stateParams.id }).$promise;
             }]
           }
         }

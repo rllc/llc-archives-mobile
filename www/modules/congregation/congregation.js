@@ -13,24 +13,24 @@ angular.module('llc.archives.congregation', [])
           controller: 'CongregationListCtrl as congregationListCtrl',
           resolve: {
             congregations: ['Congregation', function (Congregation) {
-              return Congregation.query();
+              return Congregation.query().$promise;
             }]
           }
         }
       }
     })
     .state('tab.congregation', {
-      url: '/congregations/:name',
+      url: '/congregations/:id',
       views: {
         'congregations': {
           templateUrl: 'modules/congregation/congregation.html',
           controller: 'CongregationCtrl as congregationCtrl',
           resolve: {
             congregation: ['Congregation', '$stateParams', function (Congregation, $stateParams) {
-              return Congregation.findByName($stateParams.name);
+              return  Congregation.get({ id: $stateParams.id }).$promise;
             }],
             sermons: ['Sermon', '$stateParams', function (Sermon, $stateParams) {
-              return Sermon.findAllByCongregation($stateParams.name);
+              return Sermon.findAllByCongregation({ congregationId: $stateParams.id }).$promise;
             }]
           }
         }

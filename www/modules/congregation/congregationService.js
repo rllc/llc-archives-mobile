@@ -1,28 +1,28 @@
 (function () {
 'use strict';
 
-function CongregationService ($localstorage, $http, $filter, api) {
+function CongregationService ($resource, api) {
 
   var restApiUrl = api.llcArchives;
 
-  return {
-    query: function () {
-      $localstorage.set('sermons', '');
-      $localstorage.setObject('congregations', '');
-
-      return $http.get(restApiUrl + '/congregations').then(function (response) {
-        $localstorage.setObject('congregations', response.data._embedded.congregations);
-        return response.data._embedded.congregations;
-      });
-    },
-    findByName: function (name) {
-      var congregations = $localstorage.getObject('congregations');
-      return $filter('filter')(congregations, { name: name })[0];
+  return $resource(restApiUrl + '/congregations/:id', {
+    id: '@id'
+  }, {
+    query: {
+      method: 'GET',
+      url: restApiUrl + '/congregations',
+      cache: true,
+      isArray: true,
+      transformResponse: function (data) {
+        var dataAsJson = angular.fromJson(data);
+        return dataAsJson._embedded.congregations;
+      }
     }
-  }
+  });
+
 }
 
 angular.module('llc.archives.congregation')
-  .factory('Congregation', ['$localstorage', '$http', '$filter', 'api', CongregationService]);
+  .factory('Congregation', ['$resource', 'api', CongregationService]);
 
 })();

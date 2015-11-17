@@ -16,7 +16,7 @@ angular.module('llc.archives.settings', [])
               return Settings.get();
             }],
             congregations: ['Congregation', function (Congregation) {
-                return Congregation.query();
+                return Congregation.query().$promise;
             }]
           }
         }

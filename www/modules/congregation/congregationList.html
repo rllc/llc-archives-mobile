@@ -1,9 +1,9 @@
 <ion-view view-title="LLC Archives">
   <ion-content class="padding">
     <ul class="list">
-        <li ng-repeat="c in congregationListCtrl.congregations track by $index " class="item">
-          <a href="#/tab/congregations/{{c.name}}">
-            {{c.fullName}}
+        <li ng-repeat="congregation in congregationListCtrl.congregations track by congregation.id" class="item">
+          <a ui-sref="tab.congregation({ id: congregation.id })">
+            {{ congregation.fullName }}
           </a>
         </li>
     </ul>

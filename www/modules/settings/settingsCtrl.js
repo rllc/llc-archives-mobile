@@ -7,7 +7,6 @@ function SettingsCtrl ($scope, $localstorage, Settings, settings, congregations)
   this.congregations = congregations;
 
   this.save = function() {
-    console.log('save',this.settings);
     Settings.save(this.settings);
   }
 

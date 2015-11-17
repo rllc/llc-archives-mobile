@@ -6,7 +6,8 @@ angular.module('llc.archives', [
   'llc.archives.congregation',
   'llc.archives.sermon',
   'llc.archives.settings',
-  'llc.archives.common'
+  'llc.archives.common',
+  'ngResource'
 ])
 
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {

@@ -1,7 +1,7 @@
 (function () {
 'use strict';
 
-function CongregationCtrl (congregation, sermons){
+function CongregationCtrl (congregation, sermons) {
   this.congregation = congregation;
   this.sermons = sermons;
 }

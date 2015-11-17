@@ -2,7 +2,7 @@
   <ion-content>
     <ion-list>
       <span ng-repeat="sermon in congregationCtrl.sermons | orderBy : 'date' : true track by $index">
-        <a class="item" ui-sref="tab.sermon({ name: congregationCtrl.congregation.name, index: $index })">
+        <a class="item" ui-sref="tab.sermon({ name: congregationCtrl.congregation.name, id: sermon.id })">
           <i class="icon"></i>
           {{sermon.date | date:'MM/dd/yyyy'}} - {{sermon.minister}}
           <span class="item-note">
